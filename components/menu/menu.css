@@ -1,0 +1,57 @@
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    /* margin: 10px; */
+    /* margin-top: 0; */
+    padding: 10px;
+    border-bottom: 2px  solid black;
+    cursor: pointer;
+}
+
+li:hover {
+    background-color: lemonchiffon;
+}
+
+.delete {
+    position:  absolute;
+    /* float: right; */
+    /*right: 30px; */
+    /* border: 1px solid  red; */
+    visibility: hidden;
+    opacity:  0.4;
+}
+
+.delete:hover {
+    opacity: 1;
+}
+
+li:hover .delete {
+    visibility: visible;
+}
+
+.delete::before, .delete::after {
+    position: absolute;
+    right: -270px;
+    top: -23px; 
+    width: 7px;
+    height: 28px;
+    content: ' ';
+    background-color: grey;
+    /* border-left: 2px solid black; */
+    transform: rotate(30deg)
+}
+
+.delete::before {
+    transform: rotate(45deg);
+}
+
+.delete::after {
+    transform: rotate(-45deg);
+}
+
+.test-div {
+    transform: rotate(45deg);
+}
