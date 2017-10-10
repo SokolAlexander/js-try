@@ -1,6 +1,19 @@
-div.menu {
+.menu {
     margin: auto;
-    width: 300px;
+    width: 500px;
     border: 2px solid grey;
     padding: 20px;
+}
+
+.form {
+    margin: auto;
+    margin-bottom: 0;
+    border: 2px solid grey;
+    border-top-width: 0;
+    width: 500px;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 0;
 }

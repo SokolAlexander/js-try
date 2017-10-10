@@ -1,11 +1,16 @@
 'use strict';
 (function() {
-    let $el = document.querySelector('.js-menu');
+    let $menuEl = document.querySelector('.js-menu');
     let data = {
         title: "headphones",
         items: ["sony", "philips", "behringer"]
     };
 
-    let menu = new Menu($el, data);
+    let $formEl = document.querySelector('.js-form')
+
+    let menu = new Menu($menuEl, data);
     menu.render();
+
+    let form = new Form($formEl);
+    form.render();
 })();

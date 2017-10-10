@@ -19,7 +19,7 @@
         }
 
         _getItems() {
-            return this.data.items.reduce((res, item) => `${res}<li>${item}<div class="delete"></div></li>`, '')
+            return this.data.items.reduce((res, item) => `${res}<li data-index="${this.data.items.indexOf(item)}">${item}<div class="delete"></div></li>`, '')
         }
 
         _initEvents() {
@@ -27,22 +27,22 @@
         }
 
         _onClick(e) {
-            let self = this;
             if (e.target.tagName === "LI") {
                 console.log(e.target);
-            } else if (e.target.classList.contains('delete')) {
-                console.log(this);   
-                console.log(self);               
-                
+            } else if (e.target.classList.contains('delete')) {         
                 this.delete(e.target.parentNode);
             }
         }
 
-        delete($li) {
-            console.log($li);
-            console.log(this.$el);
-            $li.parentNode.removeChild($li);
-        }
+        delete($itemToBeRemoved) {
+            let indexToBeRemoved = parseInt($itemToBeRemoved.dataset.index, 10);
+           this.data.items = this.data.items.filter((item, index) => {
+               console.log(indexToBeRemoved !== index);
+               return indexToBeRemoved !== index;
+            });
+           console.log(this.data.items)
+           this.render();
+           }
 
         /**
          * Render a  menu

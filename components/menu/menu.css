@@ -51,7 +51,3 @@ li:hover .delete {
 .delete::after {
     transform: rotate(-45deg);
 }
-
-.test-div {
-    transform: rotate(45deg);
-}
