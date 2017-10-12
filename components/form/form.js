@@ -29,12 +29,23 @@
             this.$el.addEventListener('submit', this._onSubmit.bind(this));
         }
 
+        /**
+         * Submit form
+         * @param {event} event 
+         */
         _onSubmit(event) {
             event.preventDefault();
+            
+            
             let url = this.$el.querySelector("input[type='URL']").value;
             let anchor = this.$el.querySelector("input[type='text']").value;
+            
+            let formSubmit = new CustomEvent('formSubmit', {bubbles: true, detail: {url: url, anchor: anchor}});
 
-            if (url && anchor) console.log(`form submitted, url: ${url}, anchor: ${anchor}`);
+            if (url && anchor) {
+                console.log(`form submitted, url: ${url}, anchor: ${anchor}`);
+                this.$el.dispatchEvent(formSubmit);
+                };
         }
     };
 
