@@ -1,0 +1,35 @@
+.categories {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    background-color: white;
+}
+
+.categories th {
+    padding-bottom: 20px;
+}
+
+.categories td {
+    border: 1px solid black;
+    display: block;
+    height: 150px;
+    width: 150px;
+    text-align: center;
+    line-height: 150px;
+}
+
+.categories td:hover {
+    background: #999696;
+}
+
+.categories tr:last-child>td {
+    border: 1px dashed black;
+    opacity: 0.5;
+}
+
+.categories tr:last-child>td:hover {
+    opacity: 1;
+    cursor: pointer;
+    background: lightblue;    
+}

@@ -1,6 +1,26 @@
 input {
-    min-width: 80px;
-    max-width: 100px;
-    margin: 20px;
+    min-width: 150px;
+    max-width: 270px;
+    width: 90px;
+    margin: 10px;
     padding: 5px;
 }
+
+.form-wrapper {
+    max-width: 440px;
+    margin: auto;
+}
+
+form {
+    margin: 0;
+    padding: auto;
+}
+
+/* input[type="submit"]:hover {
+    background: linear-gradient(to top, #476e9e 5%, #7892c2 100%);
+} */
+/* 
+input[type="submit"]:active {
+    position:relative;
+    top: 1px;
+} */

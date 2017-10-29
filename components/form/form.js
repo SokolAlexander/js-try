@@ -10,7 +10,6 @@
          */
         constructor($el) {
             this.$el = $el;
-            this.render();
             this._initEvents();
         }
 
@@ -18,12 +17,13 @@
          * render a form
          */
         render() {
-            this.$el.innerHTML = `<form><input type="url" placeholder="URL"><input type="text" placeholder="anchor">
-                                  <input type="submit" value="click!"></form>`;
+            this.$el.innerHTML = `<form><table class="form-wrapper"><tr><td><input type="number" placeholder="amount of money"></td>
+                                  <td><input type="text" placeholder="comment (unnessecary)">
+                                  </td></tr></table></form>`;
         }
 
         /**
-         * initialize event listeners
+         * initialise event listeners
          */
         _initEvents() {
             this.$el.addEventListener('submit', this._onSubmit.bind(this));
@@ -35,7 +35,7 @@
          */
         _onSubmit(event) {
             event.preventDefault();
-            
+            debugger;
             
             let url = this.$el.querySelector("input[type='URL']").value;
             let anchor = this.$el.querySelector("input[type='text']").value;
@@ -45,6 +45,7 @@
             if (url && anchor) {
                 console.log(`form submitted, url: ${url}, anchor: ${anchor}`);
                 this.$el.dispatchEvent(formSubmit);
+                this.$el.querySelector('form').reset();
                 };
         }
     };

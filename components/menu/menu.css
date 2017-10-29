@@ -1,27 +1,31 @@
 ul {
     list-style: none;
     padding: 0;
+    margin: auto;
 }
 
 li {
     /* margin: 10px; */
     /* margin-top: 0; */
     padding: 10px;
-    border-bottom: 2px  solid black;
+    border-bottom: 1px  solid black;
     cursor: pointer;
+    position: relative;
 }
 
 li:hover {
-    background-color: lemonchiffon;
+    background-color: rgba(111, 111, 233, 0.33);
 }
 
 .delete {
-    position:  absolute;
+    position: absolute;
     /* float: right; */
-    /*right: 30px; */
+    right: 30px;
+    height: 30px;
     /* border: 1px solid  red; */
     visibility: hidden;
     opacity:  0.4;
+    background-color: #424242;      
 }
 
 .delete:hover {
@@ -34,14 +38,13 @@ li:hover .delete {
 
 .delete::before, .delete::after {
     position: absolute;
-    right: -270px;
+    right: 5px;
     top: -23px; 
     width: 7px;
     height: 28px;
     content: ' ';
-    background-color: grey;
+    background-color: #FFF;
     /* border-left: 2px solid black; */
-    transform: rotate(30deg)
 }
 
 .delete::before {
