@@ -24,3 +24,16 @@ input[type="submit"]:active {
     position:relative;
     top: 1px;
 } */
+
+.error {
+	background: red;
+	border: 3px solid maroon;
+	color: white;
+	width: 150px;
+	height: 70px;
+	display: none;
+}
+
+.display-error {
+	display: block;
+}

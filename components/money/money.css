@@ -5,3 +5,11 @@
     font-size: 2em;
     text-align: center;
 }
+
+.edit {
+	float: right;
+	background: green;
+	width: 30px;
+	height: 1.15em;
+	cursor: pointer;
+}

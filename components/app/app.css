@@ -6,7 +6,7 @@ body {
     background: #F1F2B5;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #135058, #F1F2B5);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #7274CC 0%, #ECECBB 30%, #FFF 100%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    transition: all 0.3s ease-in;
 }
 
 .menu {
