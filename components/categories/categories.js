@@ -11,13 +11,13 @@
 		*Create a table of categories
 		*@param {HTMLElement} $el
 		*@param {Array of strings} categs
-		*@param {boolean} left/right
+		*@param {boolean} leftOrRight
 		*/
         constructor($el, categs, lr) {
             this.$el = $el;
 			this._plusMinus = lr;
-			$el.classList.add(lr ? 'left' : 'right');
-			
+			this.moveRight();
+
 			this.categs = categs;
 
             this._initEvents();
@@ -30,7 +30,27 @@
             this.$el.innerHTML = `<table><th>Choose a category</th>
 			${this._getList()}
 			<tr><td class='js-add'>+</td></tr></table>`;
-        }
+		}
+		
+		/**
+		 * move categories right (show left one, hide the right one)
+		 * @return {boolean} position of elements
+		 */
+		moveRight() {
+			this.$el.classList.add(this._plusMinus ? 'left' : 'right-hidden');
+			this.$el.classList.remove(this._plusMinus ? 'left-hidden' : 'right');
+			return false;
+		}
+
+		/**
+		 * move categories right (show right one, hide the left one)
+		 * @return {boolean} position of elements
+		 */
+		moveLeft() {
+			this.$el.classList.add(this._plusMinus ? 'left-hidden' : 'right');
+			this.$el.classList.remove(this._plusMinus ? 'left' : 'right-hidden');
+			return true;			
+		}
 		
 		/**
 		*Get list of categories in a form of table rows/cells

@@ -1,9 +1,22 @@
 .left {
-	left: 0;
+    left: 0;
+    transform: translateX(0px);
+    
+}
+
+.left-hidden {
+    transform: translateX(-150px);
+    left: -150px;
 }
 
 .right {
-	right: 0;
+    right: 0px;
+    /* transform: translateX(0px); */
+}
+
+.right-hidden {
+    right: 0px; 
+    transform: translateX(150px);
 }
 
 .categories {
@@ -11,6 +24,7 @@
     top: 0;
     z-index: 100;
     background-color: white;
+    transition: all 0.5s ease-out;
 }
 
 .categories th {
