@@ -45,11 +45,12 @@
         }
 
         _onClick(e) {
-			if (e.target.classList.contains('js-add')) 
-				{this.addCategory()
-					} else if (e.target.tagName === "TD"){
+			if (e.target.classList.contains('js-add')) {
+				this.addCategory()
+				} else if (e.target.tagName === "TD") {
 					let category = e.target.innerHTML;
-					let pickCategory = new CustomEvent('pickCategory', {bubbles: true, detail: {categ: category, sign: this.plusMinus}});
+					let pickCategory = new CustomEvent('pickCategory', 
+						{bubbles: true, detail: {category: category, sign: this._plusMinus}});
 					this.$el.dispatchEvent(pickCategory)};
 			}
 		

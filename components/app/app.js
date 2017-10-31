@@ -23,21 +23,26 @@
 		let form = new Form($formEl);
 		form.render();
 
-		let spent = new Categories($spentEl, categs, 1);
+		let spent = new Categories($spentEl, categs, 0);
 		spent.render();
 		
-		let income = new Categories($incomeEl, categsIn, 0);
+		let income = new Categories($incomeEl, categsIn, 1);
 		income.render();
+
+		//1 - income - left - plus when adding, minus when deleting
+		//0 - spents - right - minus when adding, plus when deleting
 
 		let counter = new Counter($amountEl);
 		counter.setAmount(0);
 
-		$appEl.addEventListener('pickCategory',(e) => {let newItem = form.getData(e.detail.categ);
+		$appEl.addEventListener('pickCategory', (e) => {
+													   let newItem = form.getData(e.detail);
 													   if (newItem) {menu.addItem(newItem);
-													   counter.setAmount(counter.amount + (-1 * e.detail.sign) * newItem.amount));
-													   };
+													   //counter.setAmount(e.detail.sign ? counter.amount + +newItem.amount : counter.amount - newItem.amount);
+													   //debugger;
+													   counter.computeAmount(menu.data)};
 													   });
 		
-		$appEl.addEventListener('dataChange', (e) => counter.setAmount(counter.amount + +e.detail));
+		$appEl.addEventListener('dataChange', (e) => {counter.computeAmount(menu.data)});
 		
 })();

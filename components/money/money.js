@@ -8,6 +8,11 @@
 			this._initEvents();
         }
 
+        computeAmount(data) {
+            let amnt = data.reduce((res, item) => res += item.sign ? +item.amount : -item.amount, 0);
+            this.setAmount(amnt);
+        }
+
         setAmount(amnt) {
             this.amount = amnt;
 			this._render();

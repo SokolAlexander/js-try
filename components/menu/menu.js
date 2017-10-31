@@ -82,11 +82,11 @@
 			
 			let indexToBeRemoved = parseInt($itemToBeRemoved.dataset.index, 10);
 			let dataChange = new CustomEvent('dataChange', {bubbles: true, detail: this.data[indexToBeRemoved].amount});
+            
             this.data = this.data.filter((item, index) => {
                return indexToBeRemoved !== index;
             });
-            this.render();
-			
+            this.render();			
 
 			this.$el.dispatchEvent(dataChange);
             }

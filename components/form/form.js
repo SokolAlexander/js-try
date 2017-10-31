@@ -54,23 +54,22 @@
 		*@param {string}
 		*return {object}
 		*/
-		getData(category) {
+		getData(item) {
             let amount = this.$el.querySelector("input[type='number']").value;
-			console.log(amount);
             let comment = this.$el.querySelector("input[type='text']").value;
 			
 			if (!amount) {
-				console.log(amount);
 				this._showWarning();
 				return false;
 			}
 			
 			this._hideWarning();
-			this.$el.querySelector('form').reset();
+            this.$el.querySelector('form').reset();
 			
-			return {category: category,
+			return {category: item.category,
 					amount: amount,
-					comment: comment}
+                    comment: comment,
+                    sign: item.sign}
 		}
 		
 		/**
