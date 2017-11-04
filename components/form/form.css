@@ -16,22 +16,14 @@ form {
     padding: auto;
 }
 
-/* input[type="submit"]:hover {
-    background: linear-gradient(to top, #476e9e 5%, #7892c2 100%);
-} */
-/* 
-input[type="submit"]:active {
-    position:relative;
-    top: 1px;
-} */
-
 .error {
 	background: red;
 	border: 3px solid maroon;
 	color: white;
-	width: 150px;
-	height: 70px;
+	max-width: 120px;
 	display: none;
+	margin: auto;
+	text-align: center;
 }
 
 .display-error {

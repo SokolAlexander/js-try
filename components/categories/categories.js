@@ -57,7 +57,7 @@
 		*return {string}
 		*/
 		_getList() {
-			return this.categs.reduce((res, item) => res += `<tr><td>${item}</td></tr>`,'')
+			return this.categs.reduce((res, item) => res += `<tr><td>${item}<div class="delete-cat"></div></td></tr>`,'')
 		}
 
         _initEvents() {
@@ -67,16 +67,31 @@
         _onClick(e) {
 			if (e.target.classList.contains('js-add')) {
 				this.addCategory()
-				} else if (e.target.tagName === "TD") {
-					let category = e.target.innerHTML;
-					let pickCategory = new CustomEvent('pickCategory', 
-						{bubbles: true, detail: {category: category, sign: this._plusMinus}});
-					this.$el.dispatchEvent(pickCategory)};
+				} else if (e.target.classList.contains('delete-cat')) {
+					//console.log(e.target.parentNode.innerHTML);
+					this.deleteCat(e.target.parentNode);
+						} else if (e.target.tagName === "TD") {
+						let category = this._getCategName(e.target);
+						let pickCategory = new CustomEvent('pickCategory', 
+							{bubbles: true, detail: {category: category, sign: this._plusMinus}});
+						this.$el.dispatchEvent(pickCategory)};
 			}
 		
 		addCategory() {
 			let newCat = prompt('New Category Name?', '');
-			this.categs.push(newCat);
+			if (newCat) this.categs.push(newCat);
+			this.render();
+		}
+		
+		_getCategName(item) {
+			let i = item.innerHTML.indexOf('<');
+			return item.innerHTML.slice(0, i);
+		}
+		
+		deleteCat(item) {
+			let categName = this._getCategName(item);
+			this.categs = this.categs.filter((itemC, index) => {
+				return itemC !== categName});
 			this.render();
 		}
     };

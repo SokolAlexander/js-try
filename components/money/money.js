@@ -8,9 +8,12 @@
 			this._initEvents();
         }
 
-        computeAmount(data) {
-            let amnt = data.reduce((res, item) => res += item.sign ? +item.amount : -item.amount, 0);
-            this.setAmount(amnt);
+        computeAmount(lastItem) {
+            // let amnt = dataIn.reduce((res, item) => res += +item.amount, 0) - 
+            //            dataOut.reduce((res, item) => res -= item.amount, 0);
+            //console.log(lastItem);
+            this.amount += lastItem.sign ? +lastItem.amount : -lastItem.amount;
+            this._render();
         }
 
         setAmount(amnt) {
@@ -28,7 +31,7 @@
 		
 		editAmount(e) {
 			if (e.target.classList.contains('edit')) {
-			let newAmount = prompt('Enter new amount?', this.amount);
+			let newAmount = +prompt('Enter new amount?', this.amount);
 			this.setAmount(newAmount);
 			}
 		}

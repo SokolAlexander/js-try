@@ -2,7 +2,10 @@
 
 (function() {
 	
-	let dataIn = [];
+	let dataIn = [{category: 'car', amount: 100, comment: 'test', sign: 1, date: '02.11.2017'}, 
+				  {category: 'salary', amount: 10, comment: 'test', sign: 1, date: '02.08.2017'},
+				  {category: 'percents', amount: 20, comment: 'test', sign: 1, date: '02.08.2017'},
+				  {category: 'gifts', amount: 30, comment: 'test', sign: 1, date: '02.08.2017'},];
 	let dataOut = [];
 	let categs = ['Car', 'Food', 'Clothes'];
 	let categsIn = ['Salary', 'Percents', 'Gifts'];
@@ -14,13 +17,22 @@
 	let $incomeEl = document.querySelector('.js-income');
 	let $amountEl = document.querySelector('.js-money-left');    
 	
-	let $arrowEl = document.querySelector('.arrow');
+	let $arrowEl = document.querySelector('.js-arrow');
 	let categPosition = false;
 	
+	let $repEl = document.querySelector('.js-report');
+	let $showRepEl = document.querySelector('.js-show-report');
+	//let $showPieEl = document.querySelector('.js-show-pie');
+	let	reportIn = new Report($repEl);
+	let	reportOut = new Report($repEl);
+		
+	
 	let menuIn = new Menu($menuEl, dataIn);
+	menuIn.name = 'menuIn';
 	menuIn.render();
 
-	let menuOut = new Menu($menuEl, dataOut)
+	let menuOut = new Menu($menuEl, dataOut);
+	menuOut.name = 'menuOut';
 
 	let form = new Form($formEl);
 	form.render();
@@ -39,18 +51,45 @@
 
 	$appEl.addEventListener('pickCategory', (e) => {
 											let newItem = form.getData(e.detail);
-											if (newItem) {menuIn.addItem(newItem);s
-											counter.computeAmount(menuIn.dataIn)};
+											if (newItem) {
+												if (newItem.sign) menuIn.addItem(newItem)
+													else menuOut.addItem(newItem);
+											counter.computeAmount(newItem) };
 											});
 	
-	$appEl.addEventListener('dataChange', (e) => {counter.computeAmount(menuIn.dataIn)});
+	$appEl.addEventListener('elDelete', (e) => {
+		//if false then -1 - true, else 1 then 0 = false
+		e.detail.sign -= 1;
+		counter.computeAmount(e.detail)});
 	
 	$arrowEl.addEventListener('click', () => {if (categPosition) {
 		categPosition = spent.moveRight();
 		income.moveRight();
+		menuIn.render();
+		menuOut.isRendered = false;
+		reportIn.setData(menuIn.getRepData());
 		} else {
 			categPosition = spent.moveLeft();
 			income.moveLeft();
+			menuOut.render();
+			menuIn.isRendered = false;
+			reportIn.setData(menuOut.getRepData());
 		};
-		$arrowEl.classList.toggle('arrow-transform')})
+		$arrowEl.classList.toggle('arrow-transform')});
+		
+	$showRepEl.addEventListener('click', () => {
+		
+		$repEl.classList.remove('report-hidden');
+		
+		if (!categPosition) {
+			reportIn.setData(menuIn.getRepData())
+			} else {
+				reportOut.setData(menuOut.getRepData())
+			};
+			
+		$repEl.scrollIntoView();
+	
+	});
+
+	reportIn.makePie(menuIn.getRepData());
 })();
