@@ -8,11 +8,19 @@
 			this._initEvents();
         }
 
-        computeAmount(lastItem) {
-            // let amnt = dataIn.reduce((res, item) => res += +item.amount, 0) - 
-            //            dataOut.reduce((res, item) => res -= item.amount, 0);
-            //console.log(lastItem);
-            this.amount += lastItem.sign ? +lastItem.amount : -lastItem.amount;
+        computeAmount(income, outcome) {
+			
+			let summIn = 0;
+			for (let key in income) {
+				summIn += +income[key]; 
+			}
+			
+			let summOut = 0;
+			for (let key in outcome) {
+				summOut += +outcome[key]; 
+			}
+		
+            this.amount = summIn - summOut;
             this._render();
         }
 

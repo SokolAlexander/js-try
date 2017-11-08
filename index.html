@@ -24,8 +24,8 @@
             <div class="money-left js-money-left"></div>
             <div class="form js-form"></div>   
             <div class="menu js-menu"></div>
-            <div class="report js-report report-hidden"></div>
-            <div class="pie js-pie"></div>
+            <div class="report js-report report-hidden">
+            </div>
         </div>   
         <script src="./components/report/report.js"></script>
         <script src="./components/money/money.js"></script>        
@@ -33,6 +33,11 @@
         <script src="./components/menu/menu.js"></script>
         <script src="./components/form/form.js"></script>        
         <script src="./components/app/app.js"></script>
+		
+		<script>
+			'use strict';
+			let app = new App(document.querySelector('.js-app'));
+		</script>
         
 
         

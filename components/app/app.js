@@ -2,94 +2,118 @@
 
 (function() {
 	
-	let dataIn = [{category: 'car', amount: 100, comment: 'test', sign: 1, date: '02.11.2017'}, 
-				  {category: 'salary', amount: 10, comment: 'test', sign: 1, date: '02.08.2017'},
-				  {category: 'percents', amount: 20, comment: 'test', sign: 1, date: '02.08.2017'},
-				  {category: 'gifts', amount: 30, comment: 'test', sign: 1, date: '02.08.2017'},];
-	let dataOut = [];
-	let categs = ['Car', 'Food', 'Clothes'];
-	let categsIn = ['Salary', 'Percents', 'Gifts'];
-	
-	let $menuEl = document.querySelector('.js-menu');
-	let $formEl = document.querySelector('.js-form');
-	let $appEl = document.querySelector('.js-app');
-	let $spentEl = document.querySelector('.js-spent');
-	let $incomeEl = document.querySelector('.js-income');
-	let $amountEl = document.querySelector('.js-money-left');    
-	
-	let $arrowEl = document.querySelector('.js-arrow');
-	let categPosition = false;
-	
-	let $repEl = document.querySelector('.js-report');
-	let $showRepEl = document.querySelector('.js-show-report');
-	//let $showPieEl = document.querySelector('.js-show-pie');
-	let	reportIn = new Report($repEl);
-	let	reportOut = new Report($repEl);
+	class App {
 		
-	
-	let menuIn = new Menu($menuEl, dataIn);
-	menuIn.name = 'menuIn';
-	menuIn.render();
-
-	let menuOut = new Menu($menuEl, dataOut);
-	menuOut.name = 'menuOut';
-
-	let form = new Form($formEl);
-	form.render();
-
-	let spent = new Categories($spentEl, categs, 0);
-	spent.render();
-	
-	let income = new Categories($incomeEl, categsIn, 1);
-	income.render();
-
-	//1 - income - left - plus when adding, minus when deleting
-	//0 - spents - right - minus when adding, plus when deleting
-
-	let counter = new Counter($amountEl);
-	counter.setAmount(0);
-
-	$appEl.addEventListener('pickCategory', (e) => {
-											let newItem = form.getData(e.detail);
-											if (newItem) {
-												if (newItem.sign) menuIn.addItem(newItem)
-													else menuOut.addItem(newItem);
-											counter.computeAmount(newItem) };
-											});
-	
-	$appEl.addEventListener('elDelete', (e) => {
-		//if false then -1 - true, else 1 then 0 = false
-		e.detail.sign -= 1;
-		counter.computeAmount(e.detail)});
-	
-	$arrowEl.addEventListener('click', () => {if (categPosition) {
-		categPosition = spent.moveRight();
-		income.moveRight();
-		menuIn.render();
-		menuOut.isRendered = false;
-		reportIn.setData(menuIn.getRepData());
-		} else {
-			categPosition = spent.moveLeft();
-			income.moveLeft();
-			menuOut.render();
-			menuIn.isRendered = false;
-			reportIn.setData(menuOut.getRepData());
-		};
-		$arrowEl.classList.toggle('arrow-transform')});
-		
-	$showRepEl.addEventListener('click', () => {
-		
-		$repEl.classList.remove('report-hidden');
-		
-		if (!categPosition) {
-			reportIn.setData(menuIn.getRepData())
-			} else {
-				reportOut.setData(menuOut.getRepData())
-			};
+		constructor($el) {
+			this.$appEl = $el;
 			
-		$repEl.scrollIntoView();
-	
-	});
+			//getting all HTML elements
+			this.$menuEl = document.querySelector('.js-menu');
+			this.$formEl = document.querySelector('.js-form');
+			this.$spentEl = document.querySelector('.js-spent');
+			this.$incomeEl = document.querySelector('.js-income');
+			this.$amountEl = document.querySelector('.js-money-left');  
+			
+			this.$arrowEl = document.querySelector('.js-arrow');
+			this.categPosition = false;
+			
+			this.$repEl = document.querySelector('.js-report');
+			this.$showRepEl = document.querySelector('.js-show-report');
+			
+			
+			//setting all the categs and data (temp)
+			
+			this.dataIn = [{category: 'Apartment', amount: 100, comment: 'test', sign: 1, date: new Date('2017.11.02')}, 
+						  {category: 'salary', amount: 50, comment: 'test', sign: 1, date: new Date('2017.11.02')},
+						  {category: 'percents', amount: 20, comment: 'test', sign: 1, date: new Date('2017.08.20')},
+						  {category: 'gifts', amount: 30, comment: 'test', sign: 1, date: new Date('2017.08.20')},];
+			this.dataOut = [];
+			this.categs = ['Car', 'Food', 'Clothes'];
+			this.categsIn = ['Salary', 'Percents', 'Gifts'];
+			
+			
+			//creating all js elements and rendering		
+			this.menuIn = new Menu(this.$menuEl, this.dataIn);
+			this.menuIn.name = 'menuIn';
+			this.menuIn.render();
 
-	reportIn.makePie(menuIn.getRepData());
+			this.menuOut = new Menu(this.$menuEl, this.dataOut);
+			this.menuOut.name = 'menuOut';
+			
+			this.counter = new Counter(this.$amountEl);
+			this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData());
+
+			this.form = new Form(this.$formEl);
+			this.form.render();
+
+			//1 - income - left - plus when adding, minus when deleting
+			//0 - spents - right - minus when adding, plus when deleting
+			this.spent = new Categories(this.$spentEl, this.categs, 0);
+			this.spent.render();
+		
+			this.income = new Categories(this.$incomeEl, this.categsIn, 1);
+			this.income.render();
+
+			this.reportIn = new Report(this.$repEl);
+			this.reportOut = new Report(this.$repEl);
+
+			
+			this._initEvents();
+		}
+	
+	
+		_initEvents() {
+			this.$appEl.addEventListener('pickCategory', this._onItemAdd.bind(this));
+		
+			this.$appEl.addEventListener('elDelete', (e) => {
+				this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData())});
+			
+			this.$arrowEl.addEventListener('click', this._changeCategory.bind(this));
+				
+			this.$showRepEl.addEventListener('click', this._showRep.bind(this));
+		}
+		
+		_onItemAdd(e) {
+			let newItem = this.form.getData(e.detail);
+			if (newItem) {
+				if (newItem.sign) this.menuIn.addItem(newItem)
+				else {
+					this.menuOut.addItem(newItem);
+					this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData());
+					}
+			}
+		}
+		
+		_changeCategory() {
+			if (this.categPosition) {
+					this.categPosition = this.spent.moveRight();
+					this.income.moveRight();
+					this.menuIn.render();
+					this.menuOut.isRendered = false;
+					this.reportIn.setData(this.menuIn.getRepData());
+				} else {
+					this.categPosition = this.spent.moveLeft();
+					this.income.moveLeft();
+					this.menuOut.render();
+					this.menuIn.isRendered = false;
+					this.reportIn.setData(this.menuOut.getRepData());
+				};
+			this.$arrowEl.classList.toggle('arrow-transform');
+		}
+			
+		_showRep() {
+			this.$repEl.classList.remove('report-hidden');
+		
+			if (!this.categPosition) {
+					this.reportIn.setData(this.menuIn.getRepData())
+				} else {
+					this.reportOut.setData(this.menuOut.getRepData())
+				};
+			
+			this.$repEl.scrollIntoView();
+			}
+		};
+
+	
+	window.App = App;
 })();

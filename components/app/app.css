@@ -24,14 +24,16 @@ body {
 
 .show-report:hover {
 	opacity: 1;
-	transform: scale(1.03);
+}
+
+.show-report:active {
+    transform: scale(0.9);
 }
 
 .report {
 	margin: auto;
-	margin-top: 50px;
-	width: 500px;
-	border: 1px solid black;
+    margin-top: 50px;
+    width: 500px;
 }
 
 .menu {
@@ -90,6 +92,10 @@ h3 {
 
 .arrow:hover {
 	opacity: 1;
+}
+
+.arrow:active {
+    transform: scale(0.9);
 }
 
 .arrow:before {

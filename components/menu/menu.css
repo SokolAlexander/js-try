@@ -1,8 +1,3 @@
-.date {
-	padding: 15px 30px;
-	background: lightblue;
-}
-
 .spents {
 	width: 100%;
 	border-collapse: collapse;
@@ -20,27 +15,23 @@
 	transition: all 3s ease-out;
 }
 
-.spents tr {
-	
+
+
+.spents th.date {
+	background-color: white;
 }
 
-.spents tr:nth-child(2n+1) {
-	background-color: #E9EAD2;
+.spents th.date:hover {
+	background-color: white;
+}
+
+.spents tr:nth-child(2n+1) {	
+	background-color: lightgoldenrodyellow;
 }
 
 .spents tr:hover {
     background-color: rgba(111, 111, 233, 0.33);
 }
-
-.spents tr:first-child {
-	background: 0;
-}
-
-.spents tr:first-child:hover {
-	background: 0;
-}
-
-
 
 .show-comment {
 	position: relative;
@@ -126,4 +117,8 @@ tr:hover .delete {
 
 .delete::after {
     transform: rotate(-45deg);
+}
+
+.set-date {
+	text-align: center;
 }
