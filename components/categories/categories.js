@@ -73,7 +73,7 @@
 						} else if (e.target.tagName === "TD") {
 						let category = this._getCategName(e.target);
 						let pickCategory = new CustomEvent('pickCategory', 
-							{bubbles: true, detail: {category: category, sign: this._plusMinus}});
+							{bubbles: true, detail: {category: category}});
 						this.$el.dispatchEvent(pickCategory)};
 			}
 		

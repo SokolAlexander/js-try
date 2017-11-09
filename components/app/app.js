@@ -22,7 +22,6 @@
 			
 			
 			//setting all the categs and data (temp)
-			
 			this.dataIn = [{category: 'Apartment', amount: 100, comment: 'test', sign: 1, date: new Date('2017.11.02')}, 
 						  {category: 'salary', amount: 50, comment: 'test', sign: 1, date: new Date('2017.11.02')},
 						  {category: 'percents', amount: 20, comment: 'test', sign: 1, date: new Date('2017.08.20')},
@@ -30,7 +29,6 @@
 			this.dataOut = [];
 			this.categs = ['Car', 'Food', 'Clothes'];
 			this.categsIn = ['Salary', 'Percents', 'Gifts'];
-			
 			
 			//creating all js elements and rendering		
 			this.menuIn = new Menu(this.$menuEl, this.dataIn);
@@ -57,25 +55,28 @@
 			this.reportIn = new Report(this.$repEl);
 			this.reportOut = new Report(this.$repEl);
 
-			
 			this._initEvents();
 		}
 	
-	
+		/**
+		 * initialise all event listeners
+		 */
 		_initEvents() {
 			this.$appEl.addEventListener('pickCategory', this._onItemAdd.bind(this));
-		
 			this.$appEl.addEventListener('elDelete', (e) => {
 				this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData())});
 			
 			this.$arrowEl.addEventListener('click', this._changeCategory.bind(this));
-				
 			this.$showRepEl.addEventListener('click', this._showRep.bind(this));
 		}
 		
+		/**
+		 * process adding an item
+		 * @param {event} e 
+		 */
 		_onItemAdd(e) {
 			let newItem = this.form.getData(e.detail);
-			if (newItem) {
+			if (menuIn.isRendered) {
 				if (newItem.sign) this.menuIn.addItem(newItem)
 				else {
 					this.menuOut.addItem(newItem);
