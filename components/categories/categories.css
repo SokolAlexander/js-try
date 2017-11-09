@@ -80,6 +80,8 @@
 .categories tr:last-child>td {
     border: 1px dashed black;
     opacity: 0.5;
+    font-weight: bold;
+    font-size: 2.2em;
 }
 
 .categories tr:last-child>td:hover {

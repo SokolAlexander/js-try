@@ -12,8 +12,8 @@
 		}
 
 		_initEvents() {
-			this.$el.addEventListener('click', this._onClick.bind(this));
-			this.$el.addEventListener('mouseOver', this._onHover.bind(this));
+			// this.$el.addEventListener('click', this._onClick.bind(this));
+			// this.$el.addEventListener('mouseOver', this._onHover.bind(this));
 		} 
 
 		// _onClick(e) {
@@ -102,7 +102,6 @@
 			};
 			
 		this._makePieLegend(colours, repData, percents);
-			
 		}
 
 		_makePieLegend(colours, repData, percents) {
@@ -114,14 +113,19 @@
 			$legendEl.classList.add('pie-legend', 'js-pie-legend');
 			this.$el.appendChild($legendEl);
 			
+			let total = 0;
 			let categs = Object.keys(repData);
 			let res = '';
 			for (let i = 0; i < categs.length; i++) {
 			res += `<div style='background-color: #${colours[i]};'>
-			</div><span>${categs[i]}</span> 
+			</div><span>${categs[i]}:</span> 
 			<span>${repData[categs[i]]} 
 			(${(this._getPercents(repData)[i]*100).toFixed(2)}%)</span>`;
+			total += +repData[categs[i]];
 			}
+
+			res += `<div class='total'>
+			Total: ${total}</div>`
 			$legendEl.innerHTML = res;
 		}
 	}

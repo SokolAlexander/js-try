@@ -43,3 +43,10 @@ div.report-hidden {
 	border: 2px solid black;
 }
 
+.pie-legend>div.total {
+	width: auto;
+	height: auto;
+	border: 0;
+	border-top: 2px solid black;
+	margin-top: 15px;
+}
