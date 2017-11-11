@@ -61,7 +61,7 @@
 			let startDate = this._getFormattedDate(new Date());
 			let endDate = this._getFormattedDate(new Date());
 
-			if (this.isRendered) {
+			if (this.data[0]) {
 				startDate = this._getFormattedDate(this.data[this.data.length - 1].date);
 				endDate = this._getFormattedDate(this.data[0].date);
 			};
@@ -245,7 +245,7 @@
          */
         _delete($itemToBeRemoved) {
             let indexToBeRemoved = parseInt($itemToBeRemoved.dataset.index, 10);
-            let dataChange = new CustomEvent('elDelete', {bubbles: true});
+            let dataChange = new CustomEvent('menuChange', {bubbles: true});
             
             this.data = this.data.filter((item, index) => {
                 return indexToBeRemoved !== index;
@@ -260,7 +260,7 @@
          * @param {Object} item
          */
         addItem(item) {
-            let dataChange = new CustomEvent('elDelete', {bubbles: true});
+            let dataChange = new CustomEvent('menuChange', {bubbles: true});
 			
             this.data.unshift(item);
 			let today = new Date();

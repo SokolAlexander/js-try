@@ -2,6 +2,9 @@
 
 (function(){
 
+    /**
+     * class representing a form for data input
+     */
     class Form {
 
         /**
@@ -30,29 +33,17 @@
         }
 
         /**
-         * Submit form
+         * prevent form from submitting
          * @param {event} event 
          */
         _onSubmit(event) {
             event.preventDefault();
-           /*  debugger;
-            
-            let amount = this.$el.querySelector("input[type='number']").value;
-            let comment = this.$el.querySelector("input[type='text']").value;
-            
-            let formSubmit = new CustomEvent('formSubmit', {bubbles: true, detail: {url: url, anchor: anchor}});
-
-            if (amount) {
-                console.log(`form submitted, url: ${url}, anchor: ${anchor}`);
-                this.$el.dispatchEvent(formSubmit);
-                this.$el.querySelector('form').reset();
-                }; */
         }
 		
 		/**
-		*Get data from form, if there is amount, call _requestAmount otherwise
-		*@param {string}
-		*return {object}
+		*Get data from form, if there is amount, call _showWarning otherwise
+		*@param {Object}
+		*@return {object}
 		*/
 		getData(item) {
             let amount = this.$el.querySelector("input[type='number']").value;

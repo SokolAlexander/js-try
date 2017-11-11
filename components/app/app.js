@@ -2,8 +2,15 @@
 
 (function() {
 	
+	/**
+	 * class representing a whole application
+	 */
 	class App {
 		
+		/**
+		 * construct an app
+		 * @param {HTMLElement}  
+		 */
 		constructor($el) {
 			this.$appEl = $el;
 			
@@ -63,10 +70,10 @@
 		 */
 		_initEvents() {
 			this.$appEl.addEventListener('pickCategory', this._onItemAdd.bind(this));
-			this.$appEl.addEventListener('elDelete', (e) => {
+			this.$appEl.addEventListener('menuChange', (e) => {
 				this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData())});
 			
-			this.$arrowEl.addEventListener('click', this._changeCategory.bind(this));
+			this.$arrowEl.addEventListener('click', this._changeCategoryPos.bind(this));
 			this.$showRepEl.addEventListener('click', this._showRep.bind(this));
 		}
 		
@@ -76,16 +83,19 @@
 		 */
 		_onItemAdd(e) {
 			let newItem = this.form.getData(e.detail);
-			if (menuIn.isRendered) {
-				if (newItem.sign) this.menuIn.addItem(newItem)
+			//if (this.menuIn.isRendered) {
+				if (this.menuIn.isRendered) this.menuIn.addItem(newItem)
 				else {
 					this.menuOut.addItem(newItem);
-					this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData());
+					//this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData());
 					}
-			}
+			//}
 		}
 		
-		_changeCategory() {
+		/**
+		 * change category position, menu, report
+		 */
+		_changeCategoryPos() {
 			if (this.categPosition) {
 					this.categPosition = this.spent.moveRight();
 					this.income.moveRight();
@@ -101,7 +111,10 @@
 				};
 			this.$arrowEl.classList.toggle('arrow-transform');
 		}
-			
+
+		/**
+		 * show report div
+		 */	
 		_showRep() {
 			this.$repEl.classList.remove('report-hidden');
 		
@@ -114,7 +127,6 @@
 			this.$repEl.scrollIntoView();
 			}
 		};
-
-	
+		
 	window.App = App;
 })();
