@@ -83,13 +83,12 @@
 		 */
 		_onItemAdd(e) {
 			let newItem = this.form.getData(e.detail);
-			//if (this.menuIn.isRendered) {
+			if (newItem) {
 				if (this.menuIn.isRendered) this.menuIn.addItem(newItem)
 				else {
-					this.menuOut.addItem(newItem);
-					//this.counter.computeAmount(this.menuIn.getRepData(), this.menuOut.getRepData());
+					this.menuOut.addItem(newItem); 
 					}
-			//}
+			}
 		}
 		
 		/**

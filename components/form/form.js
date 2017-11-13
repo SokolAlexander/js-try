@@ -17,12 +17,14 @@
         }
 
         /**
-         * render a form
+         * render a form, call function to make an error
          */
         render() {
-            this.$el.innerHTML = `<form><table class="form-wrapper"><tr><td><input type="number" placeholder="amount of money"></td>
+            this.$el.innerHTML = `<form><table class="form-wrapper"><tr>
+                                  <td><input type="number" placeholder="amount of money"></td>
                                   <td><input type="text" placeholder="comment (unnessecary)">
                                   </td></tr></table></form><div class="error"></div>`;
+            this._makeError();            
         }
 
         /**
@@ -41,9 +43,9 @@
         }
 		
 		/**
-		*Get data from form, if there is amount, call _showWarning otherwise
+		*Get data from form if there is an amount, call _showWarning otherwise
 		*@param {Object}
-		*@return {object}
+		*@return {Object}
 		*/
 		getData(item) {
             let amount = this.$el.querySelector("input[type='number']").value;
@@ -59,23 +61,29 @@
 			
 			return {category: item.category,
 					amount: amount,
-                    comment: comment,
-                    sign: item.sign}
+                    comment: comment}
 		}
-		
+        
+        /**
+         * create warning requesting an amount
+         */
+        _makeError() {
+            this.error = this.$el.querySelector('.error');
+            this.error.innerHTML = 'Enter a number';
+        }
+
 		/**
-		*Show warning that requests to fill the amount field
+		*Show the warning requesting an amount
 		*/
 		_showWarning() {
-			let error = this.$el.querySelector('.error')
-			error.innerHTML = 'Enter a number';
-			error.classList.add('display-error');
-			
+			this.error.classList.add('display-error');
 		}
-		
+        
+        /**
+         * hide the warning requesting an amount
+         */
 		_hideWarning() {
-			let error = this.$el.querySelector('.error')
-			error.classList.remove('display-error');
+			this.error.classList.remove('display-error');
 			}
 		}
 		

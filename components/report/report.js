@@ -2,39 +2,34 @@
 
 (function() {
 	
+	/**
+	 * class representing a report
+	 */
 	class Report {
 		
+		/**
+		 * create a report
+		 * @param {HTMLElement}  
+		 */
 		constructor($el) {
 			this.$el = $el;
-
-			this._initEvents();
-
 		}
 
-		_initEvents() {
-			// this.$el.addEventListener('click', this._onClick.bind(this));
-			// this.$el.addEventListener('mouseOver', this._onHover.bind(this));
-		} 
-
-		// _onClick(e) {
-		// 	console.log(e.target);
-		// }
-
-		// _onHover(e) {
-		// 	if (e.target.classList.contains('pie')) {
-		// 		console.log(e.target);
-		// 	}
-		// }
-		
+		/**
+		 * set data of a report and call makePie
+		 * @param {Object} data 
+		 */
 		setData(data) {
 			this.data = data;
-			this._makePie(data);
-			
-			this.isRendered = true;
+			this._makePie();
 		}
 		
+		/**
+		 * get percents of each category, and compute total
+		 * @param {Object} data 
+		 * @returns {Array of numbers}
+		 */
 		_getPercents(data) {
-
 			let total = 0;
 			for (let key in data) {
 				total += data[key];
@@ -46,16 +41,24 @@
 				percents[i] = +(data[key]/total).toFixed(3);
 				i++;
 			};
-
 			return percents;
 		}
 
-		_getDegrees(percent) {
-			console.log(360*percent + 90.0);
+		/**
+		 * get degrees of skewing for pie element
+		 * @param {number} percent 
+		 * @returns {number}
+		 */
+		_getDegrees(percents) {
 			return 360*percent + 90;
 		}
 
-		_makePie(repData) {	
+		/**
+		 * draw a pie diagram
+		 * @param {Object} repData 
+		 */
+		_makePie() {
+			let repData = this.data;	
 
 			let $pieEl = document.createElement('div');
 			$pieEl.classList.add('pie', 'js-pie');
@@ -98,12 +101,17 @@
 
 				newDiv.classList.add('sector');
 				$pieEl.appendChild(newDiv);
-				
 			};
 			
 		this._makePieLegend(colours, repData, percents);
 		}
 
+		/**
+		 * draw a legend for pie
+		 * @param {Array of colours in RRGGBB format} colours 
+		 * @param {Object} repData 
+		 * @param {Array of numbers} percents 
+		 */
 		_makePieLegend(colours, repData, percents) {
 			
 			let $legendEl = document.querySelector('.js-pie-legend');

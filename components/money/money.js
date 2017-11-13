@@ -1,13 +1,23 @@
 (function() {
 
+	/**
+	 * class representing a money counter
+	 */
     class Counter {
 
+		/**
+		 * Create a money counter
+		 * @param {HTMLElement}  
+		 */
         constructor($el) {
             this.$el = $el;
-			
-			this._initEvents();
         }
 
+		/**
+		 * compute remaining amount of money based on income/outcome
+		 * @param {Object} income 
+		 * @param {Object} outcome 
+		 */
         computeAmount(income, outcome) {
 			
 			let summIn = 0;
@@ -24,25 +34,13 @@
             this._render();
         }
 
-        setAmount(amnt) {
-            this.amount = amnt;
-			this._render();
-        }
-
+		/**
+		 * render a counter
+		 */
         _render() {
             this.$el.innerHTML = `${this.amount}<div class="edit"></div>`;
         }
 		
-		_initEvents() {
-			this.$el.addEventListener('click', this.editAmount.bind(this));
-		}
-		
-		editAmount(e) {
-			if (e.target.classList.contains('edit')) {
-			let newAmount = +prompt('Enter new amount?', this.amount);
-			this.setAmount(newAmount);
-			}
-		}
     };
 
     window.Counter = Counter;

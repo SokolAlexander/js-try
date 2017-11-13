@@ -164,15 +164,19 @@
 		_changeItemDate(item) {
 			let date = item.querySelector('input').value;
 			this.data[item.dataset.index].date = new Date(date);
-			let newDateItem = this.data.splice(item.dataset.index, 1)[0];
 
-			let i = 0;
-			while (this.data[i].date.valueOf() > newDateItem.date.valueOf()) {
-				i++;
-				if (i >= this.data.length) break;				 
-			};
-			this.data.splice(i, 0, newDateItem);
+			this._sortByDate();
 			this.render();
+		}
+
+		/**
+		 * sort this.data by date of an item
+		 */
+		_sortByDate() {
+			this.data.sort((a, b) => {
+				if (a.date.valueOf() > b.date.valueOf()) return -1;
+				return 1;
+			})
 		}
 		
 		/**
