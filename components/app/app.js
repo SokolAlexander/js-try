@@ -29,13 +29,13 @@
 			
 			
 			//setting all the categs and data (temp)
-			this.dataIn = [{category: 'Apartment', amount: 100, comment: 'test', sign: 1, date: new Date('2017.11.02')}, 
-						  {category: 'salary', amount: 50, comment: 'test', sign: 1, date: new Date('2017.11.02')},
-						  {category: 'percents', amount: 20, comment: 'test', sign: 1, date: new Date('2017.08.20')},
-						  {category: 'gifts', amount: 30, comment: 'test', sign: 1, date: new Date('2017.08.20')},];
+			this.dataIn = [{category: 'Apartment', amount: 100, comment: 'test', date: new Date('2017.11.02')}, 
+						  {category: 'salary', amount: 50, comment: 'test', date: new Date('2017.11.02')},
+						  {category: 'percents', amount: 20, comment: 'test', date: new Date('2017.08.20')},
+						  {category: 'gifts', amount: 30, comment: 'test', date: new Date('2017.08.20')},];
 			this.dataOut = [];
-			this.categs = ['Car', 'Food', 'Clothes'];
-			this.categsIn = ['Salary', 'Percents', 'Gifts'];
+			this.categs = ['Car', 'Food', 'Clothes', 'Car', 'Food', 'Clothes'];
+			this.categsIn = ['Salary', 'Percents', 'Gifts', 'Salary', 'Percents', 'Gifts'];
 			
 			//creating all js elements and rendering		
 			this.menuIn = new Menu(this.$menuEl, this.dataIn);

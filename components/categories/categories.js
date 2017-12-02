@@ -16,7 +16,7 @@
         constructor($el, categs, lr) {
             this.$el = $el;
 			this._lr = lr;
-			this.moveRight();
+			//this.moveRight();
 
 			this.categs = categs;
 
@@ -27,9 +27,9 @@
 		*Render a table of categories
 		*/
         render() {
-            this.$el.innerHTML = `<table><th>Choose a category</th>
+            this.$el.innerHTML = `<table><div class='categ-arrow arrow-up left' data-direction='-1'></div><th>Choose a category</th>
 			${this._getList()}
-			<tr><td class='js-add'>+</td></tr></table>`;
+			<tr><td class='js-add'>+</td></tr><div class='categ-arrow arrow-down left' data-direction='1'></div></table>`;
 		}
 		
 		/**
@@ -39,6 +39,11 @@
 		moveRight() {
 			this.$el.classList.add(this._lr ? 'left' : 'right-hidden');
 			this.$el.classList.remove(this._lr ? 'left-hidden' : 'right');
+
+			this.$el.querySelector('.arrow-up').classList.add('left');			
+			this.$el.querySelector('.arrow-up').classList.remove('right');
+			this.$el.querySelector('.arrow-down').classList.add('left');						
+			this.$el.querySelector('.arrow-down').classList.remove('right');
 			return false;
 		}
 
@@ -49,6 +54,11 @@
 		moveLeft() {
 			this.$el.classList.add(this._lr ? 'left-hidden' : 'right');
 			this.$el.classList.remove(this._lr ? 'left' : 'right-hidden');
+
+			this.$el.querySelector('.arrow-up').classList.add('right');
+			this.$el.querySelector('.arrow-up').classList.remove('left');
+			this.$el.querySelector('.arrow-down').classList.add('right');
+			this.$el.querySelector('.arrow-down').classList.remove('left');
 			return true;			
 		}
 		
@@ -76,13 +86,15 @@
 			if (e.target.classList.contains('js-add')) {
 				this.addCategory()
 				} else if (e.target.classList.contains('delete-cat')) {
-					//console.log(e.target.parentNode.innerHTML);
 					this.deleteCat(e.target.parentNode);
 						} else if (e.target.tagName === "TD") {
 						let category = this._getCategName(e.target);
 						let pickCategory = new CustomEvent('pickCategory', 
 							{bubbles: true, detail: {category: category}});
-						this.$el.dispatchEvent(pickCategory)};
+						this.$el.dispatchEvent(pickCategory)
+					} else if (e.target.classList.contains('categ-arrow')){
+						this.$el.scrollBy(0, 100*(parseInt(e.target.dataset.direction)));	
+					};
 		}
 		
 		/**

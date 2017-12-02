@@ -18,7 +18,10 @@
 }
 
 .categories {
-    position: absolute;
+    position: fixed;
+    height: 100%;
+    width: 110px;
+    overflow: hidden;
     top: 0;
     z-index: 100;
     background-color: white;
@@ -88,4 +91,27 @@
     opacity: 1;
     cursor: pointer;
     background: lightblue;    
+}
+
+.categ-arrow {
+    position: fixed;
+    background: grey;
+    width: 110px;
+    height: 40px;
+    opacity: 0.5;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.categ-arrow:active {
+    transform: scale(0.9);
+    transform-origin: 50% 50%; 
+}
+
+.arrow-up {
+    top: 0px;
+}
+
+.arrow-down { 
+    bottom: 0px;
 }

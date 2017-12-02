@@ -49,7 +49,7 @@
 		 * @param {number} percent 
 		 * @returns {number}
 		 */
-		_getDegrees(percents) {
+		_getDegrees(percent) {
 			return 360*percent + 90;
 		}
 
